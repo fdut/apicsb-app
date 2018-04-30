@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 usecase-header">
+      <h2 class="usecase-title">Value of properties used for the Use Case</h2>
+      <p class="lead usecase-description">Update with the values of your environmnet</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-8 usecase-main">
+
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-info">Statics properties</li>
+      </ul>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Client Id</td>
+              <td>
+                <input type="string" class="form-control" name="clientid" [(ngModel)]="clientid" placeholder="Ex: 96d66e72-e0de-45b2-b8c9-5b49e7f90ee8">
+              </td>
+            </tr>
+            <tr>
+              <td>Client Secret</td>
+              <td>
+                <input type="string" class="form-control" name="clientsecret" [(ngModel)]="clientsecret" placeholder="Ex: kM2eV0oO2qM7sI0oT5rJ2tR6eC6yT4yX6bL4eV7eB1qU7pE5yX">
+              </td>
+            </tr>
+            <tr>
+              <td>API Endpoint</td>
+              <td>
+                <input type="string" class="form-control" name="apicendpoint" [(ngModel)]="apicendpoint" placeholder="Ex: https://api.eu.apiconnect.ibmcloud.com/sb">
+              </td>
+            </tr>
+            <tr>
+              <td>Web App version</td>
+              <td>
+                <span>{{webappversion}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-info">Generated properties</li>
+
+        <li class="list-group-item">
+          <h5 class="list-group-item-heading">Redirect URI</h5>
+          <p class="list-group-item-text">{{redirectUri}}</p>
+        </li>
+      </ul>
+
+    </div>
+  </div>  <!-- container -->
+ 

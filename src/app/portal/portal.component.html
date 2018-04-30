@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="row">
+            <div class="col-xs-12">
+              <button class="btn btn-success" type="button" (click)="onGet()">APIs</button>
+              <button class="btn btn-danger"  type="button" (click)="onGetProduct()">Produits d'API</button>
+              <hr>
+              <ul class="list-group" >
+                  <li class="list-group-item" style="cursor: pointer" *ngFor="let server of servers">
+                    <h3>{{ server.info.title }} ({{ server.info.version }})</h3>
+                    <h6>{{ server.info.description }}</h6>
+                  </li>
+                </ul>
+            </div>
+          </div>
+    </div>
+</div>
