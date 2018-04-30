@@ -1,0 +1,208 @@
+---
+swagger: "2.0"
+info:
+  x-ibm-name: "Statement"
+  title: "Statement"
+  version: "1.0.0"
+  description: "Sample API using OAuth2 and Cloudant"
+schemes:
+- "https"
+host: "$(catalog.host)"
+basePath: "/v1"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+securityDefinitions:
+  oauth0:
+    type: "oauth2"
+    description: "Resource Owner Password Grant Type"
+    flow: "password"
+    scopes:
+      demo: ""
+    tokenUrl: "https://api.eu-de.apiconnect.ibmcloud.com/fdutorg-dev/sb/oauthsb/oauth/token"
+  clientSecretHeader:
+    type: "apiKey"
+    description: ""
+    in: "header"
+    name: "X-IBM-Client-Secret"
+  clientIdHeader:
+    type: "apiKey"
+    in: "header"
+    name: "X-IBM-Client-Id"
+security:
+- clientIdHeader: []
+  clientSecretHeader: []
+x-ibm-configuration:
+  testable: true
+  enforced: true
+  cors:
+    enabled: true
+  assembly:
+    execute:
+    - operation-switch:
+        title: "operation-switch"
+        case:
+        - operations:
+          - verb: "get"
+            path: "/statement"
+          execute:
+          - invoke:
+              title: "invoke"
+              timeout: 60
+              verb: "GET"
+              cache-response: "protocol"
+              cache-ttl: 900
+              stop-on-error:
+              - null
+              version: "1.0.0"
+              target-url: "https://$(db-url)/$(db-name)/_design/statementsDoc/_view/findAll?limit=20&reduce=false&include_docs=true"
+              username: "$(db-userid)"
+              password: "$(db-pwd)"
+        - operations:
+          - "createStatement"
+          execute:
+          - invoke:
+              title: "Create"
+              timeout: 60
+              verb: "POST"
+              cache-response: "protocol"
+              cache-ttl: 900
+              stop-on-error:
+              - null
+              version: "1.0.0"
+              target-url: "https://$(db-url)/$(db-name)/"
+              username: "$(db-userid)"
+              password: "$(db-pwd)"
+        - operations:
+          - "deleteStatement"
+          execute:
+          - invoke:
+              title: "Delete"
+              timeout: 60
+              verb: "DELETE"
+              cache-response: "protocol"
+              cache-ttl: 900
+              stop-on-error:
+              - null
+              version: "1.0.0"
+              target-url: "https://$(db-url)/$(db-name)/$(request.parameters.id)?rev=$(request.parameters.rev)"
+              username: "$(db-userid)"
+              password: "$(db-pwd)"
+        - operations:
+          - verb: "put"
+            path: "/statement"
+          execute:
+          - invoke:
+              title: "Update"
+              timeout: 60
+              verb: "PUT"
+              cache-response: "protocol"
+              cache-ttl: 900
+              stop-on-error:
+              - null
+              version: "1.0.0"
+              target-url: "https://$(db-url)/$(db-name)/$(request.parameters.id)?rev=$(request.parameters.rev)"
+              username: "$(db-userid)"
+              password: "$(db-pwd)"
+        otherwise: []
+        version: "1.0.0"
+  phase: "realized"
+  properties:
+    db-name:
+      value: "statement"
+      description: ""
+      encoded: false
+    db-pwd:
+      value: "1a4369a7350238cecd6f97c5b0993183f47d832b"
+      description: "password"
+      encoded: false
+    db-userid:
+      value: "facourgrathoureseratingr"
+      description: "username Key:facourgrathoureseratingr Password:1a4369a7350238cecd6f97c5b0993183f47d832b"
+      encoded: false
+    db-url:
+      value: "054025b7-d25a-46e9-b076-77f1452a9034-bluemix.cloudant.com"
+      description: "DB url"
+      encoded: false
+  gateway: "datapower-gateway"
+  catalogs: {}
+paths:
+  /statement:
+    get:
+      responses:
+        200:
+          description: "200 OK"
+      tags: []
+      summary: "Get all Statements"
+    post:
+      tags: []
+      summary: "Create an statement"
+      description: "This can only be done by the logged in user."
+      operationId: "createStatement"
+      parameters:
+      - name: "statement"
+        in: "body"
+        description: "Created statement object"
+        required: true
+        schema:
+          $ref: "#/definitions/Statement"
+      responses:
+        201:
+          description: "Successful operation"
+          schema:
+            type: "object"
+      produces: []
+      consumes: []
+      security:
+      - oauth0:
+        - "demo"
+        clientIdHeader: []
+        clientSecretHeader: []
+    delete:
+      responses:
+        200:
+          description: "200 OK"
+      operationId: "deleteStatement"
+      summary: "Delete a statement"
+      description: "This can only be done by the logged in user."
+    put:
+      responses:
+        200:
+          description: "200 OK"
+definitions:
+  Statement:
+    type: "object"
+    required:
+    - "id"
+    - "timestamp"
+    - "value"
+    properties:
+      id:
+        type: "number"
+        format: "int64"
+        description: "Internal identifier"
+      value:
+        type: "integer"
+        description: "value of statement"
+        maxLength: 255
+        format: "int32"
+      timestamp:
+        type: "string"
+        format: "date-time"
+        description: "Last update on"
+    additionalProperties: false
+tags: []
+parameters:
+  rev:
+    name: "rev"
+    type: "string"
+    required: false
+    in: "query"
+    description: "revision for delete"
+  id:
+    name: "id"
+    type: "string"
+    required: false
+    in: "query"
+    description: "id for delete"
