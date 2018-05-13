@@ -48,7 +48,7 @@
                 <pre>{{accountvalue | json : 12}}</pre>
             </div>
           </div>
-          <div class="alert alert-danger" role="alert" *ngIf="error">{{error && step==1}}</div>
+          <div class="alert alert-danger" role="alert" *ngIf="error && step==1">{{error}}</div>
       </div>  <!-- /.usecase-entry -->
      
       <hr>
@@ -85,7 +85,7 @@
                   <pre>{{quoteresult | json : 12}}</pre>
               </div>
             </div>
-            <div class="alert alert-danger" role="alert" *ngIf="error">{{error && step==2}}</div>
+            <div class="alert alert-danger" role="alert" *ngIf="error && step==2">{{error}}</div>
         </div>  <!-- /.usecase-entry -->
 
 

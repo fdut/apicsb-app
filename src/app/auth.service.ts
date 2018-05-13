@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 @Injectable()
 export class AuthService {
 
-    private authprops: {clientid: string, clientsecret: string, apicEndpoint: string, redirectUri:string };
+    private authprops: {clientid: string, clientsecret: string, apicEndpoint: string,   getBalanceURI: string, getQuoteURI: string, oauthEndpoint: string, scopeIn: string, redirectUri:string };
 
     private grantcode: string;
     private tokens: Token;
@@ -17,9 +17,11 @@ export class AuthService {
     private id_token: string;
     private scope : string;
     private expire_in: number;
-
+  
     private username: string;
     private password: string;
+
+    private islogged: boolean = false;
 
     private version: string = environment.VERSION;
    
@@ -34,9 +36,11 @@ export class AuthService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded' );
         headers.append('x-ibm-client-id', this.authprops.clientid);
-        let body = 'grant_type=password&client_id=8000892d-6c49-4e03-8340-ef31514a2789&client_secret=nI6uG5vD1nO6gL1cE2pI3cS3gL0rY4yV1qS7hE2oH1oJ0mK2hL&scope=demo&username=demo&password=demo';
+       // let body = 'grant_type=password&client_id='8000892d-6c49-4e03-8340-ef31514a2789&client_secret=nI6uG5vD1nO6gL1cE2pI3cS3gL0rY4yV1qS7hE2oH1oJ0mK2hL&scope=demo&username=demo&password=demo';
 
-        return this.http.post(this.authprops.apicEndpoint + '/oauthsb/oauth/token',body,{ headers: headers })
+       let body = 'grant_type=password&client_id=' + this.authprops.clientid +'&client_secret='+ this.authprops.clientsecret + '&scope=' + this.authprops.scopeIn + '&username=' + this.username +'&password='+this.password;
+
+        return this.http.post(this.authprops.apicEndpoint + this.authprops.oauthEndpoint,body,{ headers: headers })
         .map(res => res.json());
     }
 
@@ -79,14 +83,62 @@ export class AuthService {
         return this.authprops.clientid;
     }
 
+    setClientID(data){
+        this.authprops.clientid = data;
+    }
+
     // getClientSecret : return Client secret
     getClientSecret(){
         return this.authprops.clientsecret;
     }
 
+    setClientSecret(data){
+        this.authprops.clientsecret = data;
+    }
+
     // getapicEndpoint : return apic endpoint
     getapicEndpoint(){
         return this.authprops.apicEndpoint;
+    }
+
+    setapicEndpoint(data){
+        this.authprops.apicEndpoint = data;
+    }
+
+    // getBalanceURI : return getBalance API URI
+    getgetBalanceURI(){
+        return this.authprops.getBalanceURI;
+    }
+
+    setgetBalanceURI(data){
+        this.authprops.getBalanceURI = data;
+    }
+
+    // getQuoteURI : return getQuote API URI
+    getgetQuoteURI(){
+        return this.authprops.getQuoteURI;
+    }
+
+    setgetQuoteURI(data){
+        this.authprops.getQuoteURI = data;
+    }
+
+    // oauthEndpoint : return oauth Endpoint 
+    getoauthEndpoint(){
+        return this.authprops.oauthEndpoint;
+    }
+    
+    setoauthEndpoint(data){
+        this.authprops.oauthEndpoint = data;
+    }
+
+    // Define scope sending to OAuth request
+    setscopeIn(data: string){
+        this.authprops.scopeIn = data;
+    }
+
+    getscopeIn(){
+        return this.authprops.scopeIn;
     }
 
     // getapicEndpoint : return apic endpoint
@@ -118,5 +170,13 @@ export class AuthService {
     // setPassword : store password
     getPassword(){
         return this.password;
+    }
+
+    setisLogged(data: boolean){
+        this.islogged = data;
+    }
+
+    getisLogged(){
+        return this.islogged;
     }
 }

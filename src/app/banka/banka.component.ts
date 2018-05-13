@@ -29,6 +29,7 @@ export class BankaComponent implements OnInit {
     getBalance(){
       this.step=1;
       this.error="";
+      this.accountvalue = "";
       console.log("accountid: " + this.accountId);
       this.apiService.getBalance(this.accountId)
       .subscribe(data => {
@@ -42,6 +43,7 @@ export class BankaComponent implements OnInit {
     getQuote(){
       this.step=2;
       this.error="";
+      this.quoteresult="";
       this.apiService.getQuote(this.quotevalue)
           .subscribe(data => {
             this.quoteresult=data;

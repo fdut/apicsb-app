@@ -7,11 +7,14 @@
   </div>
   <div class="row">
     <div class="col-sm-8 usecase-main">
-
+      <form (ngSubmit)="onUpdateProps(f)" #f="ngForm">
       <ul class="list-group">
-        <li class="list-group-item list-group-item-info">Statics properties</li>
+        <li class="list-group-item list-group-item-info">Statics properties <button
+          class="btn btn-xs btn-primary pull-right"
+          type="submit"
+          >Save</button></li>
       </ul>
-
+    
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
@@ -24,7 +27,7 @@
             <tr>
               <td>Client Id</td>
               <td>
-                <input type="string" class="form-control" name="clientid" [(ngModel)]="clientid" placeholder="Ex: 96d66e72-e0de-45b2-b8c9-5b49e7f90ee8">
+                <input type="text" class="form-control" name="clientid" [(ngModel)]="clientid" placeholder="Ex: 96d66e72-e0de-45b2-b8c9-5b49e7f90ee8">
               </td>
             </tr>
             <tr>
@@ -40,6 +43,30 @@
               </td>
             </tr>
             <tr>
+                <td>OAuth Endpoint</td>
+                <td>
+                  <input type="string" class="form-control" name="oauthEndpoint" [(ngModel)]="oauthEndpoint" placeholder="Ex /oauth">
+                </td>
+              </tr>
+              <tr>
+                  <td>Scope</td>
+                  <td>
+                    <input type="string" class="form-control" name="scopeIn" [(ngModel)]="scopeIn" placeholder="Ex: inventory">
+                  </td>
+                </tr>
+            <tr>
+                <td>getBalance URI</td>
+                <td>
+                  <input type="string" class="form-control" name="getBalanceURI" [(ngModel)]="getBalanceURI" placeholder="Ex: /bank/getbalance">
+                </td>
+              </tr>
+              <tr>
+                  <td>getQuote URI</td>
+                  <td>
+                    <input type="string" class="form-control" name="getQuoteURI" [(ngModel)]="getQuoteURI" placeholder="Ex: /bank/getQuote">
+                  </td>
+                </tr>
+            <tr>
               <td>Web App version</td>
               <td>
                 <span>{{webappversion}}</span>
@@ -50,14 +77,26 @@
       </div>
 
       <ul class="list-group">
-        <li class="list-group-item list-group-item-info">Generated properties</li>
-
+          <li class="list-group-item list-group-item-info">Dynamics properties</li>
         <li class="list-group-item">
-          <h5 class="list-group-item-heading">Redirect URI</h5>
-          <p class="list-group-item-text">{{redirectUri}}</p>
+            <h5 class="list-group-item-heading">Access token</h5>
+            <p class="list-group-item-text">{{accessToken}}</p>
         </li>
-      </ul>
-
+        <li class="list-group-item">
+            <h5 class="list-group-item-heading">Id token</h5>
+            <p class="list-group-item-text">{{idToken}}</p>
+        </li>
+        <li class="list-group-item">
+            <h5 class="list-group-item-heading">Scope</h5>
+            <p class="list-group-item-text">{{scope}}</p>
+        </li>
+        <li class="list-group-item">
+            <h5 class="list-group-item-heading">Expire In</h5>
+            <p class="list-group-item-text">{{expire_in}}</p>
+        </li>
+    </ul>
+     
+    </form>
     </div>
   </div>  <!-- container -->
  

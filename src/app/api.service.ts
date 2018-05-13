@@ -17,8 +17,12 @@ export class ApiService {
         var headers = new Headers();
         headers.append('Accept', 'application/json' );
         headers.append('x-ibm-client-id', this.authService.getClientID());
+        headers.append('x-ibm-client-secret', this.authService.getClientSecret());
+        if (this.authService.getisLogged()) {
+            headers.append('Authorization', 'Bearer ' + this.authService.getAccessToken());
+        }
     
-        return this.http.get(this.authService.getapicEndpoint() + '/bank/v1/getbalance/' + data, { headers: headers })
+        return this.http.get(this.authService.getapicEndpoint() + this.authService.getgetBalanceURI()  + '/' + data, { headers: headers })
                 .map(res => res.json());
     }
 
@@ -27,8 +31,13 @@ export class ApiService {
         var headers = new Headers();
         headers.append('Accept', 'application/json' );
         headers.append('x-ibm-client-id', this.authService.getClientID());
+        headers.append('x-ibm-client-secret', this.authService.getClientSecret());
+        if (this.authService.getisLogged()) {
+            headers.append('Authorization', 'Bearer ' + this.authService.getAccessToken());
+        }
+
     
-        return this.http.get(this.authService.getapicEndpoint() + '/bank/v1/getQuote?symbol=' + data, { headers: headers })
+        return this.http.get(this.authService.getapicEndpoint() + this.authService.getgetQuoteURI() + '?symbol=' + data, { headers: headers })
                 .map(res => res.json());
     }
 
@@ -47,7 +56,9 @@ export class ApiService {
     postStatement(data: Statement){
             
         var headers = new Headers();
-        headers.append('Authorization', 'Bearer ' + this.authService.getAccessToken());
+        if (this.authService.getisLogged()) {
+            headers.append('Authorization', 'Bearer ' + this.authService.getAccessToken());
+        }
         headers.append('accept', 'application/json' );
         headers.append('x-ibm-client-id', this.authService.getClientID());
         headers.append('x-ibm-client-secret', this.authService.getClientSecret());

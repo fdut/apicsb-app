@@ -15,6 +15,7 @@ import { AuthService } from './auth.service';
 
 export class AppComponent {
   title = 'app';
+  log:string = "";
 
   modalRef: BsModalRef;
   islogged = false;
@@ -29,18 +30,21 @@ export class AppComponent {
 
   onSubmit(form: NgForm){
     console.log("Log - onSubmit: " + JSON.stringify(form.value));
-    this.modalRef.hide();
-    this.islogged = true;
+
     this.authService.setUsername(form.value.user);
     this.authService.setPassword(form.value.pass);
+    this.authService.setisLogged(true);
     console.log("user:" + this.authService.getUsername());
 
     this.authService.auth(form.value.user, form.value.pass)
     .subscribe(data => {
       console.log(data);
       this.authService.setAuth(data);
+      this.islogged = true;
+      this.modalRef.hide();
     }  , error => {
       console.log(JSON.stringify(error));// Error getting the data
+      this.log = JSON.stringify(error);
       this.logOut();
     });
 
@@ -48,6 +52,7 @@ export class AppComponent {
 
   logOut(){
     this.islogged = false;
+    this.authService.setisLogged(false);
     this.authService.setUsername("");
     this.authService.setPassword("");
     this.authService.setAuth(this.token);
