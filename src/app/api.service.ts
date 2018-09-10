@@ -83,4 +83,52 @@ export class ApiService {
             .map(res => res.json());
     }
 
+    getHealthList(numSecu: string){
+
+        console.log("numSecu:" + numSecu);
+            
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json' );
+        headers.append('accept', 'application/json' );
+        headers.append('x-ibm-client-id', this.authService.getClientID());
+        headers.append('x-ibm-client-secret', this.authService.getClientSecret());
+        if (this.authService.getisLogged()) {
+            headers.append('Authorization', 'Bearer ' + this.authService.getAccessToken());
+        }
+
+        var query = '{"selector": {"numsecu": {"$eq": "'+ numSecu +'" } }, "fields": ["Nature","date","montantpaye","baseremboursement"], "sort": [{"numsecu": "asc"}]}';
+/*
+        var query = {
+            "selector": {
+               "numsecu": {
+                  "$eq": numSecu
+               }
+            },
+            "fields": [
+               "Nature",
+               "date",
+               "montantpaye",
+               "baseremboursement"
+            ],
+            "sort": [
+               {
+                  "numsecu": "asc"
+               }
+            ]
+         }
+*/
+         console.log("query:" + query);
+
+
+       if (numSecu == null)  {
+        return this.http.get(this.authService.getapicEndpoint() + '/health/list', { headers: headers })
+        .map(res => res.json());
+
+       }else{
+            return this.http.post(this.authService.getapicEndpoint() + '/health/list', query, { headers: headers })
+        .map(res => res.json());
+       }
+     
+    }
+
 }

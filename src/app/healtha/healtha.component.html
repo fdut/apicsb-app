@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 usecase-header"></div>
+    <h2 class="usecase-title">Health service as a REST API</h2>
+    <p class="lead usecase-description">Health IT expose APIs to grow their mobile and digital presence</p>
+  </div>
+
+  <div class="row">
+    <!-- /.usecase-main -->
+ 
+    <div class="alert alert-info" role="alert">
+      <p>Before to test the API, you need to deploy it with the tutorial available here
+        <a href="https://github.com/fdut/apicsb-app">Github</a>
+      </p>
+    </div>
+    <img src="./assets/indusa.png" class="img-rounded" alt="Flow" style="width:50%">
+  
+    <hr>
+    <div class="col-sm-6 usecase-main">
+
+      <div class="usecase-entry">
+        <h2 class="usecase-entry-title">You identity number</h2>
+        <span class="usecase-entry-meta">GET /health
+        </span>
+
+        <p>In this use case, the customer wants to see his health operations. An API is used to send value to the back-end and retrieve the list</p>
+        <hr>
+        <p>
+          <strong>Enter your identity number</strong> and
+          <strong>Clic on the 'Send' button</strong>
+        </p>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="col-sm-6 form-group">
+              <div class="input-group">
+                <span class="input-group-addon">Number</span>
+                <input type="number" class="form-control" name="numSecu" [(ngModel)]="numSecu" placeholder="Number">
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-default" role="button" (click)="onLoadHealthList()">Send</button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <b>Result :</b>
+            <br>
+            <pre>{{healthrespvalue | json : 12}}</pre>
+          </div>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="error && step==1">{{error}}</div>
+      </div>
+      <!-- /.usecase-entry -->
+      <hr>
+    </div>
+
+    <div class="col-sm-6 usecase-main">
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><a (click)="onLoadHealthList()"><span class="glyphicon glyphicon-refresh"></span></a> Your list of your health operations</div>
+        <div class="panel-body usecase-description">
+          <p>For each entry in the list clic on the red button to delete it</p>
+        </div>
+
+        <ul class="list-group">
+          <div class="list-group-item" style="cursor: pointer" *ngFor="let health of healthlist">
+            {{ health.doc.date | date: 'EEEE, MMMM d, y, HH:mm:ss' }}
+            <div class="pull-right">
+              <span>{{ health.doc.montantpaye}}</span>
+            </div>
+            {{ health.doc.Nature}}
+          </div>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- /.usecase-main -->
+
+
+
+</div>

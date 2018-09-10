@@ -16,13 +16,15 @@ import { PortalComponent } from './portal/portal.component';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
 import { PortalService } from './portal.service';
-import { IndusaComponent } from './indusa/indusa.component'
+import { IndusaComponent } from './indusa/indusa.component';
+import { HealthaComponent } from './healtha/healtha.component'
 
 const appRoutes: Routes = [
   { path : '', component: HomeComponent },
   { path : 'banka', component: BankaComponent},
   { path : 'retaila', component: RetailaComponent},
   { path : 'indusa', component: IndusaComponent},
+  { path : 'healtha', component: HealthaComponent},
   { path : 'analytics', component: AnalyticsComponent},
   { path : 'settings', component: SettingsComponent},
   { path : 'portal', component: PortalComponent}
@@ -37,7 +39,8 @@ const appRoutes: Routes = [
     SettingsComponent,
     RetailaComponent,
     PortalComponent,
-    IndusaComponent
+    IndusaComponent,
+    HealthaComponent
   ],
   imports: [
     BrowserModule,

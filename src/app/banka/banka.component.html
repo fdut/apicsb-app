@@ -9,10 +9,47 @@
   <div class="row"> 
     <div class="col-sm-8 usecase-main">
         <div class="alert alert-info" role="alert">
-            <p>Before to test the API, you need to create and deploy it with this tutorial <a href="https://github.com/fdut/apic/tree/master/soap2json">Github</a>
+            <p>Before to test the API, you need to create and deploy it with this tutorial <a href="https://github.com/fdut/apic">Github</a>
             </p>
       </div>
-      <img src="./assets/flow.jpg" class="img-rounded" alt="Flow" style="width:100%">
+     
+      <hr>
+      <div class="usecase-entry">
+        <h2 class="usecase-entry-title">getQuote</h2>
+        <p class="usecase-entry-meta">GET /getquote
+        </p>
+
+        <p>In this case, you enter a quote logo and the API return the information of the quote</p>
+        <p>This API is just a "proxy" fo an existing API "Quote" available here : http://dev.markitondemand.com/MODApis/Api/v2/doc</p>
+        <hr>
+        <p><strong>Enter a value for the quote (Example: IBM)</strong> and <strong>Clic on the 'Get' button</strong></p>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="col-sm-4 form-group">
+              <div class="input-group">
+                <span class="input-group-addon">Quote</span>
+                <input id="quotevalue" type="string" class="form-control" name="quotevalue" [(ngModel)]="quotevalue" placeholder="Ex: IBM">
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-default" role="button" (click)="getQuote()">Get</button>
+            </div>
+          </div>
+        </div>
+
+        <blockquote>
+          <p>This API require Client id and valid Endpoint. Check <strong>Settings</strong> and update with the right value.</p>
+        </blockquote>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <b>Result :</b><br>
+                <pre>{{quoteresult | json : 12}}</pre>
+            </div>
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="error && step==2">{{error}}</div>
+      </div>  <!-- /.usecase-entry -->
       <hr>
       <div class="usecase-entry">
         <h2 class="usecase-entry-title">getBalance</h2>
@@ -20,6 +57,7 @@
         </p>
 
         <p>In this use case, the cutomer wants to check the balance of his account. He enters an account Id and the API return the Balance (simply add 1 to accoundId)</p>
+        <img src="./assets/flow.jpg" class="img-rounded" alt="Flow" style="width:100%">
         <hr>
         <p>  <strong>Enter a value for Account Id</strong> and <strong>Clic on the 'Get' button</strong></p>
 
@@ -52,41 +90,7 @@
       </div>  <!-- /.usecase-entry -->
      
       <hr>
-      <div class="usecase-entry">
-          <h2 class="usecase-entry-title">getQuote</h2>
-          <p class="usecase-entry-meta">GET /getquote
-          </p>
-  
-          <p>In this case, you enter a quote logo and the API return the information of the quote</p>
-          <hr>
-          <p>  <strong>Enter a value for the quote (Example: IBM)</strong> and <strong>Clic on the 'Get' button</strong></p>
-  
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="col-sm-4 form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">Quote</span>
-                  <input id="quotevalue" type="string" class="form-control" name="quotevalue" [(ngModel)]="quotevalue" placeholder="Ex: IBM">
-                </div>
-              </div>
-              <div class="col-sm-2">
-                <button class="btn btn-default" role="button" (click)="getQuote()">Get</button>
-              </div>
-            </div>
-          </div>
-  
-          <blockquote>
-            <p>This API require Client id and valid Endpoint. Check <strong>Settings</strong> and update with the right value.</p>
-          </blockquote>
-  
-          <div class="panel panel-default">
-              <div class="panel-body">
-                  <b>Result :</b><br>
-                  <pre>{{quoteresult | json : 12}}</pre>
-              </div>
-            </div>
-            <div class="alert alert-danger" role="alert" *ngIf="error && step==2">{{error}}</div>
-        </div>  <!-- /.usecase-entry -->
+   
 
 
     </div>
